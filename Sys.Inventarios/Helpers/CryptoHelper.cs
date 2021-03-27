@@ -6,6 +6,8 @@ namespace Sys.Inventarios.Helpers
 {
     public class CryproHelper
     {
+        // Este tipo de encriptacion es buena, pero un tanto básica. La que proporciona Microsoft es mucho mejor, 
+        // Checa el tema .NET Identity, que también te ayuda con role management.
         public enum Supported_HA
         {
             SHA256, SHA384, SHA512

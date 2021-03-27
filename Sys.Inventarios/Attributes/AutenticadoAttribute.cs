@@ -33,7 +33,7 @@ namespace Sys.Inventarios.Attributes
             {
                 IRepository Repositorio = new Model.Repository();
                 int idUser = SessionHelper.GetUser();
-                var Usuario = Repositorio.FindEntity<Usuarios>(c => c.Id == idUser);
+                var Usuario = Repositorio.FindEntity<Usuario>(c => c.Id == idUser);
                 if (Usuario != null)
                 {
                     SessionHelper.ActualizarSession(Usuario);
@@ -52,7 +52,7 @@ namespace Sys.Inventarios.Attributes
             {
                 IRepository Repositorio = new Model.Repository();
                 int idUser = SessionHelper.GetUser();
-                var Usuario = Repositorio.FindEntity<Usuarios>(c => c.Id == idUser && c.Activo == true);
+                var Usuario = Repositorio.FindEntity<Usuario>(c => c.Id == idUser && c.Activo == true);
                 if (Usuario != null)
                 {
                     SessionHelper.ActualizarSession(Usuario);

@@ -39,6 +39,10 @@ namespace Sys.Inventarios.Helpers
             var cookie = FormsAuthentication.GetAuthCookie("UserInventory", persist);
 
             cookie.Name = FormsAuthentication.FormsCookieName;
+            //No es recomendable tener una cookie persistente, es un riesgo de seguridad
+            // https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#expire-and-max-age-attributes
+            // Lo ideal es que tuvieran el secure attribute pero necesitariamos tener un dominio 
+            // HTTPS en vez de HTTP
             cookie.Expires = DateTime.Now.AddMonths(1);
 
             var ticket = FormsAuthentication.Decrypt(cookie.Value);
@@ -48,8 +52,12 @@ namespace Sys.Inventarios.Helpers
             HttpContext.Current.Response.Cookies.Add(cookie);
         }
 
-        public static void ActualizarSession(Usuarios Usuario)
+        public static void ActualizarSession(Usuario Usuario)
         {
+            // Las apps web son stateless, o sea, el estado (la información que estás operando) se borra.
+            // Cada que se genera un request-response, se limpia toda la información de tu app. Con las variables
+            // de sesión, guardas información en el servidor, de tal manera que la puedes recuperar aunque hagas varias request-responses.
+            // Como su nombre lo indica, se guardan mientras dure la sesión. 
             HttpContext.Current.Session["Usuario_ID"] = Usuario.Id;
             HttpContext.Current.Session["CorreoElectronico"] = Usuario.CorreoElectronico;
             HttpContext.Current.Session["EmpresaId"] = Usuario.EmpresaId;
